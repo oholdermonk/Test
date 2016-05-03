@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>F__K_U</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -68,54 +68,52 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>Contribute to the worst possible person, or maybe the best</h1>
+                <h1><form class="form-inline" role="form">
+  <div class="form-group">
+    <label for="messageInput">I am</label>
+    <input type="text" style="display: inline; background-color:rgba(0, 0, 0, 0); border-top:none; border-left:none; border-right: none; border-top:5px; outline:none" id="messageInput">,
+  </div>
+  <div class="form-group">
+    <label for="messageInput2">I am</label>
+    <input type="text" style="display: inline; background-color:rgba(0, 0, 0, 0); border-top:none; border-left:none; border-right: none; border-top:5px; outline:none" id="messageInput2" value="">,
+    </div>
+  <br>I am unique.<br>F*%K U.<br>
+  <button onClick="pushData();" type="submit" class="btn btn-primary btn-xl">Submit</button>
+</form></h1>
                 <hr>
                 <p>Make this bot more like you, or make it something horrible.<br>Instead of posting on your Facebook, post here and the bot can say for you what you may not want to</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+                
             </div>
         </div>
     </header>
 
-    <section class="bg-primary" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Add your favourite words to our Tweet F*%KBot </h2>
-                    <hr class="light">
-                    <p class="text-faded">Just enter words that you feel strongly about, or perhaps the government feels strongly about <a href="http://www.businessinsider.com.au/nsa-prism-keywords-for-domestic-spying-2013-6">(list here)</a></p>
-                    <div class="form-group">
-  <label for="usr">What will you say?</label>
-  
-
-<div id='messagesDiv'></div>
-    <input type='text' class = "form-control" id='nameInput' placeholder='Name'>
-    <input type='text' class = "form-control" id='messageInput' placeholder='Message'>
-    <script>
-      var myDataRef = new Firebase('https://fcku.firebaseio.com/');
-      $('#messageInput').keypress(function (e) {
+<script>
+    function pushData(){   
+      console.log("DOING A THING");
+      var myDataRef = new Firebase('https://fcku.firebaseio.com/Messages');
+      $('#messageInput1').keypress(function (e) {
         if (e.keyCode == 13) {
-          var name = $('#nameInput').val();
-          var text = $('#messageInput').val();
-          myDataRef.push({name: name, text: text});
-          $('#messageInput').val('Location');
+          var name = $('#messageInput').val();
+          var text = $('#messageInput2').val();
+          myDataRef.push({text: text});
+          $('#messageInput').val('');
         }
       });
       myDataRef.on('child_added', function(snapshot) {
         var message = snapshot.val();
-        displayChatMessage(message.name, message.text);
+        displayChatMessage(message.text);
+
+
+
       });
-      function displayChatMessage(name, text) {
-        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+
+     }
+      function displayChatMessage( text) {
+        $('<div/>').text(text).prepend($('<em/>').text("Submission"+': ')).appendTo($('#messagesDiv'));
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
       };
     </script>
 
-</div>
-                    
-                </div>
-            </div>
-        </div>
-    </section>
 
    
 
