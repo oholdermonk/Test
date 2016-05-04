@@ -37,6 +37,24 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+<script src="js/jquery.js"></script>
+<script>
+    jQuery(window).ready(function(){
+        jQuery("#btnInit").click(initiate_geolocation);
+    });
+
+    function initiate_geolocation() {
+        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+    }
+
+    function handle_geolocation_query(position){
+        console.log(position.coords.latituted);
+        alert('Lat: ' + position.coords.latitude + ' ' +
+              'Lon: ' + position.coords.longitude);
+    }
+</script>
+
 </head>
 
 <body id="page-top">
@@ -68,54 +86,52 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1><form class="form-inline" role="form">
+                <h1><form class="form-inline" role="form" onsubmit="return doIt()">
   <div class="form-group">
     <label for="messageInput">I am</label>
-    <input type="text" style="display: inline; background-color:rgba(0, 0, 0, 0); border-top:none; border-left:none; border-right: none; border-top:5px; outline:none; width:50%;" id="messageInput">
+    <input type="text" style="display: inline; background-color:rgba(0, 0, 0, 0); border-top:none; border-left:none; border-right: none; border-top:5px; outline:none; width:50%;" id='messageInput1' placeholder="">
   </div>
   <div class="form-group">
     <label for="messageInput2">I am</label>
-    <input type="text" style="display: inline; background-color:rgba(0, 0, 0, 0); border-top:none; border-left:none; border-right: none; border-top:5px; outline:none; width:50%;" id="messageInput2" value="">
+    <input type="text" style="display: inline; background-color:rgba(0, 0, 0, 0); border-top:none; border-left:none; border-right: none; border-top:5px; outline:none; width:50%;" id='messageInput2'placeholder="">
     </div>
   <br>I am unique.<br>F*%K U.<hr>
-  <button onClick="pushData();" type="submit" class="btn btn-primary btn-xl">Submit</button>
-  <script>
-    function pushData(){   
-      console.log("DOING A THING");
-      var myDataRef = new Firebase('https://fcku.firebaseio.com/Messages');
-      $('#messageInput1').keypress(function (e) {
-        if (e.keyCode == 13) {
-          var name = $('#messageInput').val();
-          var text = $('#messageInput2').val();
-          myDataRef.push({text: text});
-          $('#messageInput').val('');
-        }
-      });
-      myDataRef.on('child_added', function(snapshot) {
-        var message = snapshot.val();
-        displayChatMessage(message.text);
-
-
-
-      });
-
-     }
-      function displayChatMessage( text) {
-        $('<div/>').text(text).prepend($('<em/>').text("Submission"+': ')).appendTo($('#messagesDiv'));
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-      };
-    </script>
+  <button type="submit" class="btn btn-primary btn-xl">Submit</button>
 </form></h1>
                 <hr>
-                <p>Mass surveillance and media profiling decides who you are from your activites online. And then decide how to control you. Post anonymously to our Twitterbot who you really are.</p>
+                <p>Make this bot more like you, or make it something horrible.<br>Instead of posting on your Facebook, post here and the bot can say for you what you may not want to</p>
                 
             </div>
         </div>
     </header>
+<div id=messagesDiv></div>
+<button id="btnInit" >Find my location</button>
+
+<script>
+    var myDataRef = new Firebase('https://fcku.firebaseio.com/');
+    function doIt(){
 
 
-
-
+        
+     
+            
+          var name = $('#messageInput2').val();
+          var text = $('#messageInput1').val();
+          
+          
+        console.log(name);
+        console.log(text);
+        myDataRef.push({name: name, text: text});
+      // myDataRef.on('child_added', function(snapshot) {
+      //   var message = snapshot.val();
+      //   displayChatMessage(message.name, message.text);
+      // });
+      // function displayChatMessage(name, text) {
+      //   $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+      //   $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      // };
+}
+    </script>
    
 
    
